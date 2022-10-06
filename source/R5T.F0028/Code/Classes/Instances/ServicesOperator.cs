@@ -7,7 +7,7 @@ namespace R5T.F0028
 	{
 		#region Infrastructure
 
-	    public static ServicesOperator Instance { get; } = new();
+	    public static IServicesOperator Instance { get; } = new ServicesOperator();
 
 	    private ServicesOperator()
 	    {

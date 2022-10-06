@@ -33,7 +33,7 @@ namespace R5T.F0028
 
 		public ServiceCollection GetEmptyServiceCollection()
         {
-			ServiceCollection output = new();
+			ServiceCollection output = new ServiceCollection();
 			return output;
         }
 
