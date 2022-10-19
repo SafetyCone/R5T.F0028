@@ -11,6 +11,12 @@ namespace R5T.F0028
 	[FunctionalityMarker]
 	public partial interface IServicesOperator : IFunctionalityMarker
 	{
+		public ServiceProvider BuildServiceProvider(IServiceCollection services)
+        {
+			var serviceProvider = services.BuildServiceProvider();
+			return serviceProvider;
+        }
+
 		public async Task<ServiceProvider> BuildServiceProvider(Func<ServiceCollection, Task> configureServicesAction)
 		{
 			var serviceCollection = this.GetEmptyServiceCollection();
@@ -21,7 +27,7 @@ namespace R5T.F0028
 			return serviceProvider;
 		}
 
-		public ServiceProvider BuildServiceProvider_Synchronous(Action<ServiceCollection> configureServicesAction)
+		public ServiceProvider BuildServiceProvider(Action<ServiceCollection> configureServicesAction)
         {
 			var serviceCollection = this.GetEmptyServiceCollection();
 
@@ -37,6 +43,14 @@ namespace R5T.F0028
 			return output;
         }
 
+		public ServiceProvider GetEmptyServiceProvider()
+        {
+			var services = this.GetEmptyServiceCollection();
+
+			var serviceProvider = this.BuildServiceProvider(services);
+			return serviceProvider;
+        }
+
 		public async Task InServicesContext(
 			Func<ServiceCollection, Task> configureServicesAction,
 			Func<IServiceProvider, Task> servicesContextAction)
@@ -50,7 +64,7 @@ namespace R5T.F0028
 			Action<ServiceCollection> configureServicesAction,
 			Action<IServiceProvider> servicesContextAction)
 		{
-			using var serviceProvider = this.BuildServiceProvider_Synchronous(configureServicesAction);
+			using var serviceProvider = this.BuildServiceProvider(configureServicesAction);
 
 			servicesContextAction(serviceProvider);
 		}
