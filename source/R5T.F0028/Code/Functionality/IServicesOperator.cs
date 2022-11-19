@@ -60,6 +60,15 @@ namespace R5T.F0028
 			await servicesContextAction(serviceProvider);
         }
 
+		public async Task InServicesContext(
+			Action<ServiceCollection> configureServicesAction,
+			Func<IServiceProvider, Task> servicesContextAction)
+		{
+			using var serviceProvider = this.BuildServiceProvider(configureServicesAction);
+
+			await servicesContextAction(serviceProvider);
+		}
+
 		public void InServicesContext_Synchronous(
 			Action<ServiceCollection> configureServicesAction,
 			Action<IServiceProvider> servicesContextAction)
