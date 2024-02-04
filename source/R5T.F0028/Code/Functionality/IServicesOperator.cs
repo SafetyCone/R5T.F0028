@@ -37,6 +37,14 @@ namespace R5T.F0028
 			return serviceProvider;
         }
 
+		public TService Get_DefaultServiceValue<TService>()
+			// All services are reference types.
+			where TService : class
+		{
+			var output = Instances.DefaultOperator.Get_Default<TService>();
+			return output;
+		}
+
 		public ServiceCollection GetEmptyServiceCollection()
         {
 			ServiceCollection output = new ServiceCollection();
@@ -49,15 +57,6 @@ namespace R5T.F0028
 
 			var serviceProvider = this.BuildServiceProvider(services);
 			return serviceProvider;
-        }
-
-		public async Task InServicesContext(
-			Func<ServiceCollection, Task> configureServicesAction,
-			Func<IServiceProvider, Task> servicesContextAction)
-        {
-			using var serviceProvider = await this.BuildServiceProvider(configureServicesAction);
-
-			await servicesContextAction(serviceProvider);
         }
 
 		public async Task InServicesContext(
@@ -76,6 +75,21 @@ namespace R5T.F0028
 			using var serviceProvider = this.BuildServiceProvider(configureServicesAction);
 
 			servicesContextAction(serviceProvider);
+		}
+
+		public async Task InServicesContext(
+			Func<ServiceCollection, Task> configureServicesAction,
+			Func<IServiceProvider, Task> servicesContextAction)
+        {
+			using var serviceProvider = await this.BuildServiceProvider(configureServicesAction);
+
+			await servicesContextAction(serviceProvider);
+        }
+
+		public bool Was_Found<TService>(TService serviceInstanceFromProvider)
+		{
+			var output = Instances.DefaultOperator.Is_NotDefault<TService>(serviceInstanceFromProvider);
+			return output;
 		}
 	}
 }

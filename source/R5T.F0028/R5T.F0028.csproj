@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <NoWarn>1591</NoWarn>
+    <NoWarn>1587;1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\R5T.NG0002\source\R5T.NG0002\R5T.NG0002.csproj" />
-    <ProjectReference Include="..\..\..\R5T.T0132\source\R5T.T0132\R5T.T0132.csproj" />
+    <ProjectReference Include="..\..\..\R5T.L0066\source\R5T.L0066\R5T.L0066.csproj" />
   </ItemGroup>
   <PropertyGroup>
     <Version>1.0.1</Version>
